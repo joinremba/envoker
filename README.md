@@ -1,14 +1,14 @@
 <p align="center">
   <picture>
-    <img alt="@remba/beacon" src="./assets/logo.svg" width="80">
+    <img alt="@joinremba/beacon" src="./assets/logo.svg" width="80">
   </picture>
   <br>
-  <strong>@remba/beacon</strong>
+  <strong>@joinremba/beacon</strong>
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@remba/beacon"><img src="https://img.shields.io/npm/v/@remba/beacon.svg" alt="npm version"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/npm/l/@remba/beacon.svg" alt="Licence"></a>
+  <a href="https://www.npmjs.com/package/@joinremba/beacon"><img src="https://img.shields.io/npm/v/@joinremba/beacon.svg" alt="npm version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/npm/l/@joinremba/beacon.svg" alt="Licence"></a>
   <a href="https://github.com/joinremba/beacon/actions/workflows/ci.yml"><img src="https://github.com/joinremba/beacon/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/Bun-%3E%3D1.3.1-black?logo=bun" alt="Bun">
   <img src="https://img.shields.io/badge/TypeScript-6-blue" alt="TypeScript">
@@ -17,7 +17,7 @@
 Beacon helps TypeScript teams boot applications safely by validating environment variables, config, secrets, and runtime feature gates before production breaks.
 
 ```sh
-bun add @remba/beacon
+bun add @joinremba/beacon
 bunx beacon init
 bunx beacon check
 ```
@@ -27,7 +27,7 @@ bunx beacon check
 ## Quick Start
 
 ```ts
-import { createBeacon } from "@remba/beacon";
+import { createBeacon } from "@joinremba/beacon";
 
 const config = createBeacon({
   DATABASE_URL: { type: "url", required: true },
@@ -218,7 +218,7 @@ import type {
   FieldType,
   ConfigError,
   ConfigValidationError,
-} from "@remba/beacon";
+} from "@joinremba/beacon";
 ```
 
 ### Config file (`.beaconrc.json`)
@@ -256,7 +256,7 @@ Used by the CLI for `init` and `check` commands:
 ### Basic env validation
 
 ```ts
-import { createBeacon } from "@remba/beacon";
+import { createBeacon } from "@joinremba/beacon";
 
 const config = createBeacon({
   NODE_ENV: {
@@ -286,7 +286,7 @@ config.ensure();
 ### Custom error handling
 
 ```ts
-import { ConfigValidationError } from "@remba/beacon";
+import { ConfigValidationError } from "@joinremba/beacon";
 
 try {
   config.ensure();
@@ -356,8 +356,8 @@ const config = createBeacon(
 
 ## Related Packages
 
-- [@remba/catalog](https://github.com/joinremba/catalog) — Production-ready logging and error event layer built on Pino.
-- [@remba/gate](https://github.com/joinremba/gate) — API safety layer: validation, responses, idempotency, rate limiting, and API keys.
+- [@joinremba/catalog](https://github.com/joinremba/catalog) — Production-ready logging and error event layer built on Pino.
+- [@joinremba/gate](https://github.com/joinremba/gate) — API safety layer: validation, responses, idempotency, rate limiting, and API keys.
 
 ## Social Preview
 

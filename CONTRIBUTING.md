@@ -1,4 +1,4 @@
-# Contributing to @remba/beacon
+# Contributing to @joinremba/beacon
 
 Thank you for your interest in contributing to Beacon! We welcome contributions from everyone, whether it is a bug report, feature suggestion, documentation improvement, or code change.
 
