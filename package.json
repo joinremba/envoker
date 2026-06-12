@@ -1,6 +1,6 @@
 {
   "name": "@joinremba/beacon",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Validate environment variables, config, secrets, and runtime feature gates before production breaks.",
   "type": "module",
   "main": "./src/index.ts",
