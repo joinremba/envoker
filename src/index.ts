@@ -136,6 +136,7 @@ export function createBeacon(
 
   let validated: Record<string, unknown> | null = null;
   const features: Record<string, FeatureGate> = options?.features ?? {};
+  const killSwitches: Record<string, boolean> = options?.killSwitches ?? {};
 
   const beacon: BeaconInterface = {
     ensure(): BeaconInterface {
@@ -215,7 +216,20 @@ export function createBeacon(
       return map;
     },
 
+    isKilled(feature: string): boolean {
+      const envName = `KILL_${feature
+        .replace(/([a-z])([A-Z])/g, "$1_$2")
+        .replace(/[^a-zA-Z0-9]/g, "_")
+        .toUpperCase()}`;
+      const envVal = process.env[envName];
+      if (envVal !== undefined && envVal !== "") {
+        return parseEnvBoolean(envVal);
+      }
+      return killSwitches[feature] ?? false;
+    },
+
     isEnabled(feature: string): boolean {
+      if (this.isKilled(feature)) return false;
       const envName = featureEnvName(feature);
       const envVal = process.env[envName];
       if (envVal !== undefined && envVal !== "") {

@@ -202,12 +202,12 @@ The default export. Accepts an env schema and optional configuration.
 
 A config instance with:
 
-| Method / Property | Description                                                                                                  |
-| ----------------- | ------------------------------------------------------------------------------------------------------------ |
-| `ensure()`        | Validates all env vars. Throws `ConfigValidationError` on failure. Returns the config instance for chaining. |
-| `get<T>(key): T`  | Returns the validated value for the given key. Throws if called before `ensure()`.                           |
-| `secret`          | Returns a `Record<string, boolean>` of which keys are marked as secrets.                                     |
-| `isEnabled(feature): boolean` | Checks if a feature gate is enabled. Respects env overrides (`FEATURE_<NAME>`).              |
+| Method / Property             | Description                                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `ensure()`                    | Validates all env vars. Throws `ConfigValidationError` on failure. Returns the config instance for chaining. |
+| `get<T>(key): T`              | Returns the validated value for the given key. Throws if called before `ensure()`.                           |
+| `secret`                      | Returns a `Record<string, boolean>` of which keys are marked as secrets.                                     |
+| `isEnabled(feature): boolean` | Checks if a feature gate is enabled. Respects env overrides (`FEATURE_<NAME>`).                              |
 
 ### TypeScript Types
 
@@ -343,9 +343,9 @@ const config = createBeacon(
   }
 );
 
-config.isEnabled("newDashboard");    // true
-config.isEnabled("darkMode");        // false
-config.isEnabled("gradualRollout");  // true for ~50% of deployments (deterministic hash)
+config.isEnabled("newDashboard"); // true
+config.isEnabled("darkMode"); // false
+config.isEnabled("gradualRollout"); // true for ~50% of deployments (deterministic hash)
 ```
 
 **Env overrides** — Any feature can be toggled at runtime via `FEATURE_<NAME>`:
@@ -356,11 +356,78 @@ FEATURE_DARK_MODE=true bun start
 
 CamelCase feature names map to `FEATURE_` prefixed uppercase with underscores (`newDashboard` → `FEATURE_NEW_DASHBOARD`). Accepted truthy values: `true`, `1`, `yes`. Everything else is `false`.
 
-| Option     | Type      | Default | Description                                        |
-| ---------- | --------- | ------- | -------------------------------------------------- |
-| `enabled`  | `boolean` | `false` | Whether the gate is on by default.                 |
-| `rollout`  | `number`  | —       | Percentage of deployments (0–1). Uses deterministic hash. |
-| `description` | `string` | —   | Human-readable description.                        |
+| Option        | Type      | Default | Description                                               |
+| ------------- | --------- | ------- | --------------------------------------------------------- |
+| `enabled`     | `boolean` | `false` | Whether the gate is on by default.                        |
+| `rollout`     | `number`  | —       | Percentage of deployments (0–1). Uses deterministic hash. |
+| `description` | `string`  | —       | Human-readable description.                               |
+
+### Kill-Switch Flags
+
+Force-disable a feature at runtime — overrides any feature gate. Define kill switches in the `killSwitches` option or set `KILL_<NAME>` env vars:
+
+```ts
+const config = createBeacon(
+  { DATABASE_URL: { type: "url" } },
+  {
+    features: { newDashboard: { enabled: true } },
+    killSwitches: { newDashboard: true },
+  }
+);
+
+config.isEnabled("newDashboard"); // false — killed
+config.isKilled("newDashboard"); // true
+```
+
+**Env override** — `KILL_NEW_DASHBOARD=true` overrides the config. Accepted truthy values: `true`, `1`, `yes`.
+
+When a feature is killed, `isEnabled()` returns `false` regardless of the feature gate configuration.
+
+### Encrypted .env (`beacon encrypt` / `beacon decrypt`)
+
+Commit `.env` files safely using AES-256-GCM encryption. Requires an encryption key passed via `--key` or `BEACON_ENCRYPTION_KEY`.
+
+```sh
+# Encrypt .env → .env.encrypted
+BEACON_ENCRYPTION_KEY=your-256-bit-key beacon encrypt
+
+# Decrypt back to plaintext
+BEACON_ENCRYPTION_KEY=your-256-bit-key beacon decrypt
+
+# Custom paths
+beacon encrypt -i .env.prod -o .env.prod.encrypted --key "your-key"
+beacon decrypt -i .env.prod.encrypted -o .env.prod --key "your-key"
+```
+
+### Secret Rotation Checklist (`beacon rotate`)
+
+Prints a step-by-step checklist for rotating secrets (DB credentials, API keys, etc.):
+
+```sh
+beacon rotate
+```
+
+Follows the generate → deploy alongside → update consumers → verify → revoke → audit workflow.
+
+### Config Drift Detection (`beacon drift`)
+
+Detects when your actual environment differs from the schema defined in your config:
+
+```sh
+beacon drift
+beacon drift --profile production
+```
+
+Reports missing required variables, type mismatches, and unexpected enum values.
+
+### Docker/Kubernetes Checks (`beacon docker`)
+
+Validates your environment in container contexts — detects Docker and Kubernetes runtimes, checks common container env vars, and runs a full schema validation:
+
+```sh
+beacon docker
+beacon docker --profile staging
+```
 
 ---
 
@@ -376,15 +443,15 @@ CamelCase feature names map to `FEATURE_` prefixed uppercase with underscores (`
 - `beacon check` CLI command
 - Coloured CLI output with suggestions
 
-**V1**
+**V1** ✅
 
-- Feature gates from local config ✅
-- Kill-switch flags
-- Encrypted `.env` support
-- Secret rotation checklist
-- CI validation action
-- Docker/Kubernetes env checks
-- Config drift detection
+- Feature gates from local config
+- Kill-switch flags (`KILL_<NAME>` env vars, `config.isKilled()`)
+- Encrypted `.env` support (`beacon encrypt` / `beacon decrypt`)
+- Secret rotation checklist (`beacon rotate`)
+- CI validation action (`beacon check` in CI workflows)
+- Docker/Kubernetes env checks (`beacon docker`)
+- Config drift detection (`beacon drift`)
 
 **V2**
 

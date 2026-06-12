@@ -39,6 +39,7 @@ export interface BeaconOptions {
   profile?: string;
   profiles?: Record<string, Record<string, SchemaEntry>>;
   features?: Record<string, FeatureGate>;
+  killSwitches?: Record<string, boolean>;
 }
 
 export interface Beacon {
@@ -46,4 +47,5 @@ export interface Beacon {
   get<T = unknown>(key: string): T;
   readonly secret: Record<string, boolean>;
   isEnabled(feature: string): boolean;
+  isKilled(feature: string): boolean;
 }

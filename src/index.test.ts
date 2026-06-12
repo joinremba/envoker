@@ -223,3 +223,42 @@ test("isEnabled uses rollout when enabled is true", () => {
   );
   expect(config.isEnabled("gradual")).toBe(true);
 });
+
+test("isKilled returns false by default", () => {
+  const config = createBeacon({ PORT: { type: "port", default: 3000 } });
+  expect(config.isKilled("newDashboard")).toBe(false);
+});
+
+test("isKilled returns true when set in options", () => {
+  const config = createBeacon(
+    { PORT: { type: "port", default: 3000 } },
+    { killSwitches: { newDashboard: true } }
+  );
+  expect(config.isKilled("newDashboard")).toBe(true);
+});
+
+test("isKilled respects KILL_ env override", () => {
+  const prev = process.env.KILL_NEW_DASHBOARD;
+  try {
+    process.env.KILL_NEW_DASHBOARD = "true";
+    const config = createBeacon(
+      { PORT: { type: "port", default: 3000 } },
+      { killSwitches: { newDashboard: false } }
+    );
+    expect(config.isKilled("newDashboard")).toBe(true);
+  } finally {
+    if (prev === undefined) delete process.env.KILL_NEW_DASHBOARD;
+    else process.env.KILL_NEW_DASHBOARD = prev;
+  }
+});
+
+test("isEnabled returns false when feature is killed", () => {
+  const config = createBeacon(
+    { PORT: { type: "port", default: 3000 } },
+    {
+      features: { newDashboard: { enabled: true } },
+      killSwitches: { newDashboard: true },
+    }
+  );
+  expect(config.isEnabled("newDashboard")).toBe(false);
+});
