@@ -168,6 +168,17 @@ test("collects all errors before throwing", () => {
   }
 });
 
+test("ensure({ strict: false }) skips missing required vars without throwing", () => {
+  delete process.env.STRICT_VAR;
+
+  const config = createBeacon({
+    STRICT_VAR: { type: "string", required: true },
+    OPTIONAL_VAR: { type: "number", required: false },
+  });
+
+  expect(() => config.ensure({ strict: false })).not.toThrow();
+});
+
 test("tracks secret keys", () => {
   const config = createBeacon({
     API_KEY: { type: "string", secret: true },

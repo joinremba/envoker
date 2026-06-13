@@ -2,6 +2,7 @@ import { z } from "zod";
 import type {
   Beacon as BeaconInterface,
   BeaconOptions,
+  EnsureOptions,
   FeatureGate,
   FieldDefinition,
   FieldDefinitionWithSchema,
@@ -139,7 +140,8 @@ export function createBeacon(
   const killSwitches: Record<string, boolean> = options?.killSwitches ?? {};
 
   const beacon: BeaconInterface = {
-    ensure(): BeaconInterface {
+    ensure(options?: EnsureOptions): BeaconInterface {
+      const strict = options?.strict ?? true;
       const errors: ConfigError[] = [];
 
       for (const { key, schema, required, secret, hasDefault } of resolved) {
@@ -166,6 +168,7 @@ export function createBeacon(
 
         if (isMissing) {
           if (!required) continue;
+          if (!strict) continue;
           errors.push(
             new ConfigError(key, `Missing required environment variable: ${key}`, secret)
           );
@@ -179,6 +182,7 @@ export function createBeacon(
           if (err instanceof z.ZodError) {
             const issue = err.issues[0];
             const val = secret ? SECRET_CENSOR : raw;
+            if (!strict) continue;
             errors.push(
               new ConfigError(
                 key,

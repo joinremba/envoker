@@ -42,8 +42,14 @@ export interface BeaconOptions {
   killSwitches?: Record<string, boolean>;
 }
 
+export interface EnsureOptions {
+  /** When true (default), throws ConfigValidationError for missing required vars.
+   *  When false, silently skips missing required vars — useful in test environments. */
+  strict?: boolean;
+}
+
 export interface Beacon {
-  ensure(): Beacon;
+  ensure(options?: EnsureOptions): Beacon;
   get<T = unknown>(key: string): T;
   readonly secret: Record<string, boolean>;
   isEnabled(feature: string): boolean;
