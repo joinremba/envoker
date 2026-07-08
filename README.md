@@ -11,7 +11,6 @@
   <a href="https://www.npmjs.com/package/envoker"><img src="https://img.shields.io/npm/v/envoker.svg" alt="npm version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/npm/l/envoker.svg" alt="License"></a>
   <a href="https://github.com/joinremba/envoker/actions/workflows/ci.yml"><img src="https://github.com/joinremba/envoker/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <img src="https://img.shields.io/badge/Bun-%3E%3D1.3.1-black?logo=bun" alt="Bun">
   <img src="https://img.shields.io/badge/TypeScript-6-blue" alt="TypeScript">
 </p>
 
