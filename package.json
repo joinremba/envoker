@@ -71,7 +71,7 @@
     "zod": "^4.4.2"
   },
   "devDependencies": {
-    "@joinremba/core": "^0.4.0",
+    "@joinremba/core": "^0.5.0",
     "@types/bun": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
