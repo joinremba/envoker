@@ -1,5 +1,5 @@
 {
-  "name": "@joinremba/beacon",
+  "name": "envoker",
   "version": "0.5.2",
   "description": "Validate environment variables, config, secrets, and runtime feature gates before production breaks.",
   "type": "module",
@@ -45,12 +45,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joinremba/beacon.git"
+    "url": "git+https://github.com/joinremba/envoker.git"
   },
   "bugs": {
-    "url": "https://github.com/joinremba/beacon/issues"
+    "url": "https://github.com/joinremba/envoker/issues"
   },
-  "homepage": "https://github.com/joinremba/beacon#readme",
+  "homepage": "https://github.com/joinremba/envoker#readme",
   "keywords": [
     "env",
     "environment",
@@ -71,7 +71,6 @@
     "zod": "^4.4.2"
   },
   "devDependencies": {
-    "@joinremba/core": "^0.4.0",
     "@types/bun": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",

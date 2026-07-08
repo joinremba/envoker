@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import type { Client } from "@joinremba/core";
+import type { Client } from "./internal/client";
 
 export type FieldType =
   | "string"

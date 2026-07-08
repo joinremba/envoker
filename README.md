@@ -8,9 +8,9 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@joinremba/beacon"><img src="https://img.shields.io/npm/v/@joinremba/beacon.svg" alt="npm version"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/npm/l/@joinremba/beacon.svg" alt="License"></a>
-  <a href="https://github.com/joinremba/beacon/actions/workflows/ci.yml"><img src="https://github.com/joinremba/beacon/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://www.npmjs.com/package/envoker"><img src="https://img.shields.io/npm/v/envoker.svg" alt="npm version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/npm/l/envoker.svg" alt="License"></a>
+  <a href="https://github.com/joinremba/envoker/actions/workflows/ci.yml"><img src="https://github.com/joinremba/envoker/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/Bun-%3E%3D1.3.1-black?logo=bun" alt="Bun">
   <img src="https://img.shields.io/badge/TypeScript-6-blue" alt="TypeScript">
 </p>
@@ -26,7 +26,7 @@
 - **Feature gates & kill switches** — Runtime toggles with env-var overrides and deterministic rollout hashing.
 - **CLI tool** — `beacon init` generates `.env.example`, `beacon check` validates the runtime environment, `beacon drift` detects config drift.
 - **Encrypted .env** — AES-256-GCM encrypt/decrypt `.env` files for safe committing.
-- **Remote config** — Fetches config from the Remba cloud via `@joinremba/core` client with local fallback.
+- **Remote config** — Fetches config from the Remba cloud client with local fallback.
 - **TypeScript-first** — Strict types, generic getter, full type exports.
 
 ---
@@ -34,7 +34,7 @@
 ## Installation
 
 ```sh
-bun add @joinremba/beacon
+bun add envoker
 ```
 
 ---
@@ -42,7 +42,7 @@ bun add @joinremba/beacon
 ## Quick Start
 
 ```ts
-import { createBeacon } from "@joinremba/beacon";
+import { createBeacon } from "envoker";
 
 const config = createBeacon({
   DATABASE_URL: { type: "url", required: true },
@@ -125,7 +125,7 @@ await config.ensure();
 Errors are aggregated into a single `ConfigValidationError` (extends `AggregateError`). Access individual issues via `err.errors`:
 
 ```ts
-import { ConfigValidationError } from "@joinremba/beacon";
+import { ConfigValidationError } from "envoker";
 
 try {
   await config.ensure();
@@ -307,7 +307,7 @@ bunx beacon rotate
 | `profiles`     | `Record<string, Record<string, SchemaEntry>>` | —       | Named profile overrides. Keyed by profile name.           |
 | `features`     | `Record<string, FeatureGate>`                 | —       | Feature gate definitions for `isEnabled()`.               |
 | `killSwitches` | `Record<string, boolean>`                     | —       | Kill-switch flags. Overrides feature gates.               |
-| `client`       | `Client` (from `@joinremba/core`)             | —       | Remote config client. Fetches config from cloud.          |
+| `client`       | `Client` (Remba cloud client)                 | —       | Remote config client. Fetches config from cloud.          |
 
 ### `SchemaEntry`
 
@@ -363,7 +363,7 @@ bunx beacon rotate
 Beacon ships with strict TypeScript types. All public APIs are fully typed.
 
 ```ts
-import { createBeacon } from "@joinremba/beacon";
+import { createBeacon } from "envoker";
 import type {
   Beacon,
   BeaconOptions,
@@ -374,7 +374,7 @@ import type {
   EnsureOptions,
   ConfigError,
   ConfigValidationError,
-} from "@joinremba/beacon";
+} from "envoker";
 ```
 
 **Generic inference with `.get<T>()`:**
@@ -393,13 +393,13 @@ const debug = config.get<boolean>("DEBUG"); // inferred as boolean
 
 ---
 
-## Integration with `@joinremba/core`
+## Integration with Remba Cloud
 
-Beacon can fetch remote configuration from the Remba cloud by passing a `Client` instance from `@joinremba/core`.
+Beacon can fetch remote configuration from the Remba cloud by passing a `Client` instance from the Remba cloud client.
 
 ```ts
-import { createBeacon } from "@joinremba/beacon";
-import { createClient } from "@joinremba/core";
+import { createBeacon } from "envoker";
+// Remba cloud client SDK
 
 const client = createClient({
   apiKey: "api_core_live_abc123",
@@ -435,8 +435,8 @@ Use this to share non-sensitive config (feature flags, service URLs) across depl
 
 ## Related Packages
 
-- [@joinremba/catalog](https://github.com/joinremba/catalog) — Production-ready logging and error event layer on Pino.
-- [@joinremba/gate](https://github.com/joinremba/gate) — API safety layer: validation, responses, idempotency, rate limiting, and API keys.
+- [evtlog](https://github.com/joinremba/evtlog) — Production-ready logging and error event layer on Pino.
+- [permcheck](https://github.com/joinremba/permcheck) — API safety layer: validation, responses, idempotency, rate limiting, and API keys.
 
 ---
 

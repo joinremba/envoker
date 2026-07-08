@@ -320,14 +320,12 @@ test("remote config fills gaps not in schema", async () => {
 });
 
 test("network error on remote config silently falls back to local", async () => {
-  const { NetworkError } = await import("@joinremba/core");
-
   const config = createBeacon(
     { LOCAL_VAR: { type: "string", default: "fallback" } },
     {
       client: {
         getConfig: mock(async () => {
-          throw new NetworkError("connection lost");
+          throw new Error("connection lost");
         }),
       } as any,
     }

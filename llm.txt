@@ -1,4 +1,4 @@
-# @joinremba/beacon
+# envoker
 
 Environment variable validation, feature gates, kill switches, and CLI tool for TypeScript backends.
 
@@ -38,4 +38,4 @@ Kill switch via KILL_<NAME>=true env var overrides features.
 ## Patterns
 Named exports only (except index.ts default exports createBeacon).
 Config file: .beaconrc.json or beacon.config.json with schema/profiles/features.
-Remote config via @joinremba/core client with local fallback.
+Remote config via Remba cloud client with local fallback.

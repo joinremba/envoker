@@ -17,13 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `@joinremba/core` moved to devDependencies (type-only usage at runtime)
+- Remba cloud client moved to devDependencies (type-only usage at runtime)
 
 ## [0.4.0] - 2026-06-13
 
 ### Added
 
-- `client?: Client` option to `createBeacon()` — accepts `@joinremba/core` client for remote config
+- `client?: Client` option to `createBeacon()` — accepts a Remba cloud client for remote config
 - Remote config merging: `ensure()` fetches `client.getConfig()` and fills keys not in schema/env
 - Shared `typeToSchema()` module (`src/schema.ts`) — single source of truth for field type coercion
 - CLI tests for `runCheck`, secret redaction, and env validation

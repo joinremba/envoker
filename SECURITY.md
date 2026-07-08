@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in @joinremba/beacon, please report it by emailing **bensxnisaac@gmail.com**. You may also open a [private security advisory](https://github.com/joinremba/beacon/security/advisories/new) on GitHub.
+If you discover a security vulnerability in envoker, please report it by emailing **bensxnisaac@gmail.com**. You may also open a [private security advisory](https://github.com/joinremba/envoker/security/advisories/new) on GitHub.
 
 Please do **not** report security vulnerabilities through public GitHub issues.
 
@@ -12,7 +12,7 @@ We aim to acknowledge receipt of your report within **48 hours** and will work w
 
 ## Supported Versions
 
-Only the **latest published version** of @joinremba/beacon receives security updates. We do not provide patches for older versions.
+Only the **latest published version** of envoker receives security updates. We do not provide patches for older versions.
 
 | Version | Supported |
 | ------- | --------- |
@@ -21,7 +21,7 @@ Only the **latest published version** of @joinremba/beacon receives security upd
 
 ## Security Best Practices
 
-When using @joinremba/beacon, please follow these guidelines:
+When using envoker, please follow these guidelines:
 
 - **Validate all external input** — Always use Zod schemas to validate environment variables and configuration values. Never trust raw `process.env` values.
 - **Keep Zod up to date** — Zod is the only runtime dependency. Regularly update to the latest version to receive security fixes.

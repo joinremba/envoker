@@ -10,7 +10,7 @@ bun run check             # All checks: lint + format:check + typecheck + test
 
 ## Architecture
 
-- **`@joinremba/beacon`** — env var validation, feature gates, kill switches, CLI tool.
+- **`envoker`** — env var validation, feature gates, kill switches, CLI tool.
 - **`src/index.ts`** — `createBeacon(schema, options?)` → returns `Beacon` with `ensure()`, `get()`, `isEnabled()`, `isKilled()`.
 - **`src/types.ts`** — `FieldDefinition`, `SchemaEntry`, `BeaconOptions`, `FeatureGate`, `EnsureOptions`.
 - **`src/schema.ts`** — shared `typeToSchema()` used by both `index.ts` and `cli-config.ts`. Handles all field types + defaults.

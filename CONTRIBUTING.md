@@ -1,4 +1,4 @@
-# Contributing to @joinremba/beacon
+# Contributing to envoker
 
 Thank you for your interest in contributing to Beacon! We welcome contributions from everyone, whether it is a bug report, feature suggestion, documentation improvement, or code change.
 
@@ -19,14 +19,14 @@ This project and everyone participating in it is governed by our [Code of Conduc
 2. Clone your fork:
 
 ```sh
-git clone https://github.com/your-username/beacon.git
-cd beacon
+git clone https://github.com/your-username/envoker.git
+cd envoker
 ```
 
 3. Add the upstream remote:
 
 ```sh
-git remote add upstream https://github.com/joinremba/beacon.git
+git remote add upstream https://github.com/joinremba/envoker.git
 ```
 
 ### Install dependencies
@@ -129,15 +129,15 @@ Feature requests are welcome. Please describe:
 
 ## Getting Help
 
-If you need help or have questions, please open a [discussion](https://github.com/joinremba/beacon/discussions) or create an [issue](https://github.com/joinremba/beacon/issues).
+If you need help or have questions, please open a [discussion](https://github.com/joinremba/envoker/discussions) or create an [issue](https://github.com/joinremba/envoker/issues).
 
 ## Publishing
 
-This package is published to npm under the `@joinremba` scope.
+This package is published to npm as `envoker`.
 
 ### Prerequisites
 
-- You need npm publishing rights for the `@joinremba` organisation.
+- You need npm publishing rights for the `envoker` package.
 - You need a valid npm OTP (one-time password) for 2FA.
 
 ### Release process
