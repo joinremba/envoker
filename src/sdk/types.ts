@@ -2,15 +2,7 @@ import type { z } from "zod";
 import type { Client } from "./internal/client";
 
 export type FieldType =
-  | "string"
-  | "url"
-  | "number"
-  | "integer"
-  | "boolean"
-  | "enum"
-  | "port"
-  | "host"
-  | "email";
+  "string" | "url" | "number" | "integer" | "boolean" | "enum" | "port" | "host" | "email";
 
 export interface FieldDefinition {
   type: FieldType;
